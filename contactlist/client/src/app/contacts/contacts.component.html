@@ -1,0 +1,61 @@
+<div class="container">
+    <form (submit)="addContact()">
+        <fieldset>
+          <legend>Add Contact</legend>    
+          <hr class="my-1">      
+          <div class="form-group">
+            <label for="exampleInputEmail1">First Name</label>
+            <input type="email" [(ngModel)]="first_name" name="first_name" class="form-control" aria-describedby="emailHelp" placeholder="Enter first name">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Last Name</label>
+            <input [(ngModel)]="last_name" name="last_name" class="form-control" placeholder="Enter last name">
+          </div>
+          <div class="form-group">
+              <label for="exampleInputPassword1">Phone</label>
+              <input [(ngModel)]="phone" name="phone" class="form-control" placeholder="Phone">
+            </div>
+          <button type="submit" class="btn btn-primary">Add</button>
+        </fieldset>
+      </form>
+</div>
+<div class="container">
+    <legend>Contact List</legend>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>          
+          <tr *ngFor="let contact of contacts">
+            <!-- <th scope="row">Default</th> -->
+            <td>{{contact.first_name}}</td>
+            <td>{{contact.last_name}}</td>
+            <td>{{contact.phone}}</td>
+            <td>
+              <input type="button" (click)="editContact(contact)" title="edit" class="btn btn-success" value="!" />
+              <input type="button" (click)="deleteContact(contact._id)" title="delete" class="btn btn-danger" value="X" />
+            </td>
+          </tr>
+        </tbody>
+      </table> 
+  <!-- <div class="row mb-5" *ngFor="let contact of contacts">
+    <div class="col-md-2">
+      {{contact.first_name}}
+    </div>
+    <div class="col-md-2">
+      {{contact.last_name}}
+    </div>
+    <div class="col-md-2">
+      {{contact.phone}}
+    </div>
+    <div class="col-md-2">
+      <input type="button" (click)="deleteContact(contact._id)" class="btn btn-danger" value="X" />
+    </div>
+  </div> -->
+</div>
