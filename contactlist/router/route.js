@@ -4,7 +4,9 @@ const Contact = require('../models/contacts');
 
 // retrieving contacts
 router.get('/contacts', (req, res, next) => {
+    console.log('reached');
     Contact.find(function (err, contacts) {
+        console.log(err);
         res.json(contacts);
     })
 });

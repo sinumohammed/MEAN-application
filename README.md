@@ -11,3 +11,10 @@ Agenda
 .Node.js
 .CRUD Operations
 .Contact List MEAN app
+
+
+For deployment
+
+1. ng build
+2. npm install -g http-server [ run index html from dist folder ]
+3. http-server ./dist

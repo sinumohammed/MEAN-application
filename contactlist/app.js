@@ -11,13 +11,17 @@ const route = require('./router/route');
 const app = express();
 
 // connet to mongodb
-mongoose.connect(config.db.url + config.db.collection);
+mongoose.connect(config.db.url);
+
+// var db = mongoose.connection;
+// db.on('connected', console.error.bind(console, 'connected to db:'));
+// db.on('error', console.error.bind(console, 'connection error:'));
 
 // on connection
 mongoose.connection.on('connected', () => {
-    console.log('connected to db @27017');
+    console.log(`connected to db:${config.db.url}`);
 })
-
+// on error
 mongoose.connection.on('error', (err) => {
     console.log('Error in connection', err);
 })
@@ -30,6 +34,9 @@ app.use(morgan('combined'));
 
 // body-parserr
 app.use(bodyparser.json());
+
+//static files - serving build front end app , that are copied into public folder from dist client folder
+app.use(express.static(path.join(__dirname,'public')));
 
 // add routes
 app.use('/api', route);
