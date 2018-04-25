@@ -26,4 +26,4 @@ For deployment
 2. npm install -g http-server [ run index html from dist folder ]
 3. http-server ./dist [ run index.html ]
 
-View <a href="https://damp-bastion-45968.herokuapp.com/">Demo</a>
+View <a target="_blank" href="https://damp-bastion-45968.herokuapp.com/">Demo</a>
