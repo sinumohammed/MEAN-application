@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  API_ENDPOINT:'https://damp-bastion-45968.herokuapp.com/api/contacts/'
 };
