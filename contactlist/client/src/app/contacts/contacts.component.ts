@@ -12,6 +12,7 @@ export class ContactsComponent implements OnInit {
 
   contacts: Contact[];
   contact: Contact;
+  _id: string;
   first_name: string;
   last_name: string;
   phone: string;
@@ -38,21 +39,34 @@ export class ContactsComponent implements OnInit {
       last_name: this.last_name,
       phone: this.phone
     }
-    this.contactSerrvice.addContact(newContact).subscribe(
-      data => {
-        console.log(data);
-        this.getContacts();
-        this.clearFields();
-      },
-      err => console.error(err)
-    );
+    if (!this._id) {
+      this.contactSerrvice.addContact(newContact).subscribe(
+        data => {
+          console.log(data);
+          this.getContacts();
+          this.clearFields();
+        },
+        err => console.error(err)
+      );
+    }
+    else {
+      newContact._id = this._id;
+      this.contactSerrvice.updateContact(newContact).subscribe(
+        data => {
+          console.log(data);
+          this.getContacts();
+          this.clearFields();
+        },
+        err => console.error(err)
+      );
+    }
   }
 
   editContact(contact: Contact) {
+    this._id = contact._id;
     this.first_name = contact.first_name;
     this.last_name = contact.last_name;
     this.phone = contact.phone;
-    //this.addContact();
   }
 
   deleteContact(id: string) {
@@ -70,5 +84,6 @@ export class ContactsComponent implements OnInit {
     this.first_name = '';
     this.last_name = '';
     this.phone = '';
+    this._id='';
   }
 }

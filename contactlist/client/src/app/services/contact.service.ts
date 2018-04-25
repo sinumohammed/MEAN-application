@@ -25,6 +25,13 @@ export class ContactService {
     return this.httpClient.post(appConfig.API_ENDPOINT, contact, httpOptions);
   }
 
+  // update existing contact
+  updateContact(contact:Contact) {
+    let body = JSON.stringify(contact);
+    let endPoint = appConfig.API_ENDPOINT + contact._id;
+    return this.httpClient.put(endPoint, contact, httpOptions);
+  }
+
   // retrieving contacts
   deleteContact(id:string) {
     let endPoint = appConfig.API_ENDPOINT + id;
