@@ -12,6 +12,8 @@ export class ContactsComponent implements OnInit {
 
   contacts: Contact[];
   contact: Contact;
+  isLoading = false;
+
   _id: string;
   first_name: string;
   last_name: string;
@@ -24,16 +26,18 @@ export class ContactsComponent implements OnInit {
   }
 
   getContacts() {
+    this.isLoading = true;
     this.contactSerrvice.getContacts().subscribe(
       data => {
         this.contacts = data;
       },
       err => console.error(err),
-      () => console.log('done')
+      () => this.isLoading = false
     );
   }
 
   addContact() {
+    this.isLoading = true;
     const newContact: Contact = {
       first_name: this.first_name,
       last_name: this.last_name,
@@ -46,7 +50,8 @@ export class ContactsComponent implements OnInit {
           this.getContacts();
           this.clearFields();
         },
-        err => console.error(err)
+        err => console.error(err),
+        () => this.isLoading = false
       );
     }
     else {
@@ -57,7 +62,8 @@ export class ContactsComponent implements OnInit {
           this.getContacts();
           this.clearFields();
         },
-        err => console.error(err)
+        err => console.error(err),
+        () => this.isLoading = false
       );
     }
   }
@@ -69,21 +75,25 @@ export class ContactsComponent implements OnInit {
     this.phone = contact.phone;
   }
 
-  deleteContact(id: string) {
-    this.contactSerrvice.deleteContact(id).subscribe(
-      data => {
-        if (data.n == 1) {
-          this.getContacts();
-        }
-      },
-      err => console.error(err)
-    );
+  deleteContact(contact: Contact) {
+    if (confirm(`Are you sure to delete ${contact.first_name} ?`)) {
+      this.isLoading = true;
+      this.contactSerrvice.deleteContact(contact._id).subscribe(
+        data => {
+          if (data.n == 1) {
+            this.getContacts();
+          }
+        },
+        err => console.error(err),
+        () => this.isLoading = false
+      );
+    }
   }
 
   clearFields() {
     this.first_name = '';
     this.last_name = '';
     this.phone = '';
-    this._id='';
+    this._id = '';
   }
 }

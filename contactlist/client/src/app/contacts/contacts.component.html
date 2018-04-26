@@ -2,6 +2,9 @@
   <form (submit)="addContact()">
     <fieldset>
       <legend>Add Contact</legend>
+      <!-- mode= "buffer,indeterminate" -->
+      <!-- color="accent, warn" -->
+      <mat-spinner *ngIf="isLoading" style="position: fixed;top: 50%;left: 50%;margin-top: -50px;margin-left: -100px;"></mat-spinner>
       <hr class="my-1">
       <div class="form-group">
         <label for="exampleInputEmail1">First Name</label>
@@ -39,7 +42,7 @@
         <td>{{contact.phone}}</td>
         <td>
           <input type="button" (click)="editContact(contact)" title="edit" class="btn btn-success" value="!" />
-          <input type="button" (click)="deleteContact(contact._id)" title="delete" class="btn btn-danger" value="X" />
+          <input type="button" (click)="deleteContact(contact)" title="delete" class="btn btn-danger" value="X" />
         </td>
       </tr>
     </tbody>
