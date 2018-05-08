@@ -15,9 +15,10 @@ router.get('/contacts', (req, res, next) => {
 router.post('/contacts', (req, res, next) => {
     let newContact = new Contact({
         _id: req.body._id,
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        phone: req.body.phone
+        name: req.body.name,
+        gender: req.body.gender,
+        annualSalary: req.body.annualSalary,
+        dateOfBirth:req.body.dateOfBirth
     });
     newContact.save((err, contact) => {
         if (err) {
@@ -32,9 +33,10 @@ router.post('/contacts', (req, res, next) => {
 router.put('/contacts/:id', (req, res, next) => {
     let query = { _id: req.params.id };
     Contact.findOne(query, function (err, contact){
-        contact.first_name = req.body.first_name;
-        contact.last_name=req.body.last_name;
-        contact.phone=req.body.phone;
+        contact.name = req.body.name;
+        contact.gender=req.body.gender;
+        contact.annualSalary=req.body.annualSalary;
+        contact.dateOfBirth=req.body.dateOfBirth;
         contact.save(function(err,result) {
             if(!err) {
                 res.json(result);

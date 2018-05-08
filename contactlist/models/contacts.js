@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 
 const ContactSchema = mongoose.Schema({
-    first_name:{
+    name:{
         type:String,
         required:true
     },
-    last_name:{
+    gender:{
         type:String,
         required:true
     },
-    phone:{
+    annualSalary:{
+        type:Number,
+        required:true
+    },
+    dateOfBirth:{
         type:String,
         required:true
     }

@@ -15,10 +15,10 @@ export class ContactsComponent implements OnInit {
   isLoading = false;
 
   _id: string;
-  first_name: string;
-  last_name: string;
-  phone: string;
-
+  name: string;
+  gender: string;
+  annualSalary: number;
+  dateOfBirth:string;
   constructor(private contactSerrvice: ContactService) { }
 
   ngOnInit() {
@@ -39,9 +39,10 @@ export class ContactsComponent implements OnInit {
   addContact() {
     this.isLoading = true;
     const newContact: Contact = {
-      first_name: this.first_name,
-      last_name: this.last_name,
-      phone: this.phone
+      name: this.name,
+      gender: this.gender,
+      annualSalary: this.annualSalary,
+      dateOfBirth: this.dateOfBirth
     }
     if (!this._id) {
       this.contactSerrvice.addContact(newContact).subscribe(
@@ -70,13 +71,14 @@ export class ContactsComponent implements OnInit {
 
   editContact(contact: Contact) {
     this._id = contact._id;
-    this.first_name = contact.first_name;
-    this.last_name = contact.last_name;
-    this.phone = contact.phone;
+    this.name = contact.name;
+    this.gender = contact.gender;
+    this.annualSalary = contact.annualSalary;
+    this.dateOfBirth=contact.dateOfBirth;
   }
 
   deleteContact(contact: Contact) {
-    if (confirm(`Are you sure to delete ${contact.first_name} ?`)) {
+    if (confirm(`Are you sure to delete ${contact.name} ?`)) {
       this.isLoading = true;
       this.contactSerrvice.deleteContact(contact._id).subscribe(
         data => {
@@ -91,9 +93,10 @@ export class ContactsComponent implements OnInit {
   }
 
   clearFields() {
-    this.first_name = '';
-    this.last_name = '';
-    this.phone = '';
+    this.name = '';
+    this.gender = '';
+    this.dateOfBirth = '';
+    this.annualSalary=null;
     this._id = '';
   }
 }
