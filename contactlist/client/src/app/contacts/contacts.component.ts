@@ -16,7 +16,7 @@ export class ContactsComponent implements OnInit {
 
   _id: string;
   name: string;
-  gender: string;
+  gender: string='Male';
   annualSalary: number;
   dateOfBirth:string;
   constructor(private contactSerrvice: ContactService) { }
@@ -94,7 +94,7 @@ export class ContactsComponent implements OnInit {
 
   clearFields() {
     this.name = '';
-    this.gender = '';
+    this.gender = 'Male';
     this.dateOfBirth = '';
     this.annualSalary=null;
     this._id = '';
