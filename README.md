@@ -45,5 +45,5 @@ ng build<br/>
 # To run the app from ngbuild generated code
 npm install -g http-server [ install dependency in order to run from dist folder ]<br/>
 http-server ./dist [ run index html from dist folder ]<br/>
-
-View <a target="_blank" href="https://damp-bastion-45968.herokuapp.com/">Demo</a>
+# Demo
+<p>Would you like to see it in action: <a href="https://damp-bastion-45968.herokuapp.com/" target="_blank">Visit Demo!</a></p>
