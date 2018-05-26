@@ -26,9 +26,11 @@ For running client
 > ng serve
 open on port http://localhost:4200
 
+# Heroku updation
+git push heroku master
 
 
-#For deployment
+# For deployment
 These options also apply to the serve command. If you do not pass a value for environment, it will default to dev for development and prod for production.
 
 # Prod environment
@@ -40,7 +42,7 @@ ng build --target=development --environment=dev<br/>
 ng build --dev --e=dev<br/>
 ng build --dev<br/>
 ng build<br/>
-# To test run the app from builded code
+# To run the app from ngbuild generated code
 npm install -g http-server [ install dependency in order to run from dist folder ]<br/>
 http-server ./dist [ run index html from dist folder ]<br/>
 
