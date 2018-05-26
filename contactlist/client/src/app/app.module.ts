@@ -6,13 +6,13 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { ContactsComponent } from './contacts/contacts.component';
+import { EmployeeComponent } from './employee/employee.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ContactsComponent
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,

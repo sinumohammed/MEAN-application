@@ -13,8 +13,8 @@ router.get('/contacts', (req, res, next) => {
 
 // add contact
 router.post('/contacts', (req, res, next) => {
-    let newContact = new Contact({
-        _id: req.body._id,
+    let newContact = new Contact({       
+        code:req.body.code,
         name: req.body.name,
         gender: req.body.gender,
         annualSalary: req.body.annualSalary,
@@ -22,6 +22,7 @@ router.post('/contacts', (req, res, next) => {
     });
     newContact.save((err, contact) => {
         if (err) {
+            console.log(err);
             res.json({ msg: 'failed to add user.' });
         }
         else {

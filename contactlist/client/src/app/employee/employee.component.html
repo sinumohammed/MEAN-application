@@ -1,0 +1,103 @@
+<div class="container">
+  <form (submit)="addEmployee()">
+    <fieldset>
+      <legend>Employee CRUD Operation</legend>
+      <!-- mode= "buffer,indeterminate" -->
+      <!-- color="accent, warn" -->
+      <mat-spinner *ngIf="isLoading" style="position: fixed;top: 50%;left: 50%;margin-top: -50px;margin-left: -100px;"></mat-spinner>
+      <hr class="my-1">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="bs-component">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Emp Code</label>
+              <input type="email" [(ngModel)]="code" name="code" class="form-control" aria-describedby="emailHelp" placeholder="Employee code">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input type="email" [(ngModel)]="name" name="name" class="form-control" aria-describedby="emailHelp" placeholder="Employee name">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your name with anyone else.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 offset-lg-1">
+          <div class="bs-component">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Annual Salary</label>
+              <input [(ngModel)]="annualSalary" type="number" name="annualSalary" class="form-control" placeholder="Annual salary">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">DOBy</label>
+              <input [(ngModel)]="dateOfBirth" name="dateOfBirth" class="form-control" placeholder="dd/mm/yyyy">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="bs-component">
+            <div class="form-group">
+              <label for="exampleInputPassword1">Gender</label>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optionsRadios" value="Male" [(ngModel)]="gender"> Male
+                    </label>
+                  </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input type="radio" class="form-check-input" name="optionsRadios" value="Female" [(ngModel)]="gender"> Female
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 offset-lg-1">
+          <div class="bs-component">
+            <label for="exampleInputPassword1"></label>
+            <button [disabled]="!code || !name || !dateOfBirth || !gender || !annualSalary" type="submit" class="btn btn-primary">{{_id?"Update":"Add"}}</button>
+          </div>
+        </div>
+      </div>
+      <hr class="my-1">
+    </fieldset>
+  </form>
+</div>
+<div class="container">
+  <legend>Employee List</legend>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Annual Salary</th>
+        <th scope="col">DOB</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of contacts; trackBy:trackByEmpCode">
+        <!-- <th scope="row">Default</th> -->
+        <td>{{employee.code | uppercase}}</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.gender}}</td>
+        <td>{{employee.annualSalary | currency:'USD':true:'1.3-3'}}</td>
+        <td>{{employee.dateOfBirth | date:'dd/MM/y'}}</td>
+        <td>
+          <button type="button"  (click)="editEmployee(employee)" class="btn btn-success">Edit</button>
+          <button type="button" (click)="deleteEmployee(employee)" class="btn btn-danger">Del </button>
+          <!-- <input type="button" (click)="editEmployee(employee)" title="edit" class="btn btn-success" value="!" />
+          <input type="button" (click)="deleteEmployee(employee)" title="delete" class="btn btn-danger" value="X" /> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

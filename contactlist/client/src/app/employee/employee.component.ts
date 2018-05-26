@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService } from '../services/contact.service';
-import { Contact } from '../contacts/contact'
+import { EmployeeService } from '../services/employee.service';
+import { IEmployee } from '../employee/employee'
 
 @Component({
-  selector: 'app-contacts',
-  templateUrl: './contacts.component.html',
-  styleUrls: ['./contacts.component.css'],
-  providers: [ContactService]
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.css'],
+  providers: [EmployeeService]
 })
-export class ContactsComponent implements OnInit {
+export class EmployeeComponent implements OnInit {
 
-  contacts: Contact[];
-  contact: Contact;
+  contacts: IEmployee[];
+  contact: IEmployee;
   isLoading = false;
 
   _id: string;
+  code: string;
   name: string;
-  gender: string='Male';
+  gender: string = 'Male';
   annualSalary: number;
-  dateOfBirth:string;
-  constructor(private contactSerrvice: ContactService) { }
+  dateOfBirth: string;
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.getContacts();
+    this.getEmployees();
   }
 
-  getContacts() {
+  getEmployees() {
     this.isLoading = true;
-    this.contactSerrvice.getContacts().subscribe(
+    this.employeeService.getEmployees().subscribe(
       data => {
         this.contacts = data;
       },
@@ -36,19 +37,20 @@ export class ContactsComponent implements OnInit {
     );
   }
 
-  addContact() {
+  addEmployee() {
     this.isLoading = true;
-    const newContact: Contact = {
+    const newContact: IEmployee = {
+      code: this.code,
       name: this.name,
       gender: this.gender,
       annualSalary: this.annualSalary,
       dateOfBirth: this.dateOfBirth
     }
     if (!this._id) {
-      this.contactSerrvice.addContact(newContact).subscribe(
+      this.employeeService.addEmployee(newContact).subscribe(
         data => {
           console.log(data);
-          this.getContacts();
+          this.getEmployees();
           this.clearFields();
         },
         err => console.error(err),
@@ -57,10 +59,10 @@ export class ContactsComponent implements OnInit {
     }
     else {
       newContact._id = this._id;
-      this.contactSerrvice.updateContact(newContact).subscribe(
+      this.employeeService.updateEmployee(newContact).subscribe(
         data => {
           console.log(data);
-          this.getContacts();
+          this.getEmployees();
           this.clearFields();
         },
         err => console.error(err),
@@ -69,21 +71,22 @@ export class ContactsComponent implements OnInit {
     }
   }
 
-  editContact(contact: Contact) {
+  editEmployee(contact: IEmployee) {
     this._id = contact._id;
+    this.code = contact.code;
     this.name = contact.name;
     this.gender = contact.gender;
     this.annualSalary = contact.annualSalary;
-    this.dateOfBirth=contact.dateOfBirth;
+    this.dateOfBirth = contact.dateOfBirth;
   }
 
-  deleteContact(contact: Contact) {
+  deleteEmployee(contact: IEmployee) {
     if (confirm(`Are you sure to delete ${contact.name} ?`)) {
       this.isLoading = true;
-      this.contactSerrvice.deleteContact(contact._id).subscribe(
+      this.employeeService.deleteEmployee(contact._id).subscribe(
         data => {
           if (data.n == 1) {
-            this.getContacts();
+            this.getEmployees();
           }
         },
         err => console.error(err),
@@ -91,12 +94,16 @@ export class ContactsComponent implements OnInit {
       );
     }
   }
+  trackByEmpCode(index: number, employee: any): string {
+    return employee.code;
+  }
 
   clearFields() {
-    this.name = '';
+    this.code = '',
+      this.name = '';
     this.gender = 'Male';
     this.dateOfBirth = '';
-    this.annualSalary=null;
+    this.annualSalary = null;
     this._id = '';
   }
 }
