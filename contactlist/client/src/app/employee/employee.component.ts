@@ -10,16 +10,16 @@ import { IEmployee } from '../employee/employee'
 })
 export class EmployeeComponent implements OnInit {
 
-  contacts: IEmployee[];
-  contact: IEmployee;
+  employees: IEmployee[];
   isLoading = false;
 
   _id: string;
   code: string;
   name: string;
-  gender: string = 'Male';
+  gender: string;
   annualSalary: number;
   dateOfBirth: string;
+
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class EmployeeComponent implements OnInit {
     this.isLoading = true;
     this.employeeService.getEmployees().subscribe(
       data => {
-        this.contacts = data;
+        this.employees = data;
       },
       err => console.error(err),
       () => this.isLoading = false
@@ -94,13 +94,13 @@ export class EmployeeComponent implements OnInit {
       );
     }
   }
-  trackByEmpCode(index: number, employee: any): string {
+  trackByEmpCode(index: number, employee: IEmployee): string {
     return employee.code;
   }
 
   clearFields() {
-    this.code = '',
-      this.name = '';
+    this.code = '';
+    this.name = '';
     this.gender = 'Male';
     this.dateOfBirth = '';
     this.annualSalary = null;

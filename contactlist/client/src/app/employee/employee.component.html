@@ -84,7 +84,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let employee of contacts; trackBy:trackByEmpCode">
+      <tr *ngFor="let employee of employees; trackBy:trackByEmpCode">
         <!-- <th scope="row">Default</th> -->
         <td>{{employee.code | uppercase}}</td>
         <td>{{employee.name}}</td>
