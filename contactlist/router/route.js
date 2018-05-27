@@ -1,33 +1,33 @@
 const express = require('express');
 const router = express.Router();
-const Contact = require('../models/contacts');
+const Employee = require('../models/employee');
 
 // retrieving contacts
-router.get('/contacts', (req, res, next) => {
+router.get('/employees', (req, res, next) => {
     console.log('reached');
-    Contact.find(function (err, contacts) {
+    Employee.find(function (err, contacts) {
         console.log(err);
         res.json(contacts);
     })
 });
 // retrieving single contact by code
-router.get('/contacts/:code', (req, res, next) => {
+router.get('/employees/:code', (req, res, next) => {
     let query = { code: req.params.code };    
-    Contact.findOne(query, function (err, contact){
+    Employee.findOne(query, function (err, contact){
         res.json(contact);
       });
 });
 
 // add contact
-router.post('/contacts', (req, res, next) => {
-    let newContact = new Contact({       
+router.post('/employees', (req, res, next) => {
+    let newEmployee = new Employee({       
         code:req.body.code,
         name: req.body.name,
         gender: req.body.gender,
         annualSalary: req.body.annualSalary,
         dateOfBirth:req.body.dateOfBirth
     });
-    newContact.save((err, contact) => {
+    newEmployee.save((err, employee) => {
         if (err) {
             console.log(err);
             res.json({ msg: 'failed to add user.' });
@@ -38,14 +38,14 @@ router.post('/contacts', (req, res, next) => {
     })
 });
 
-router.put('/contacts/:id', (req, res, next) => {
+router.put('/employees/:id', (req, res, next) => {
     let query = { _id: req.params.id };
-    Contact.findOne(query, function (err, contact){
-        contact.name = req.body.name;
-        contact.gender=req.body.gender;
-        contact.annualSalary=req.body.annualSalary;
-        contact.dateOfBirth=req.body.dateOfBirth;
-        contact.save(function(err,result) {
+    Employee.findOne(query, function (err, employee){
+        employee.name = req.body.name;
+        employee.gender=req.body.gender;
+        employee.annualSalary=req.body.annualSalary;
+        employee.dateOfBirth=req.body.dateOfBirth;
+        employee.save(function(err,result) {
             if(!err) {
                 res.json(result);
             }
@@ -56,8 +56,8 @@ router.put('/contacts/:id', (req, res, next) => {
       });
 });
 
-router.delete('/contacts/:id', (req, res, next) => {
-    Contact.remove({
+router.delete('/employees/:id', (req, res, next) => {
+    Eemployee.remove({
         _id: req.params.id
     }, function (err, result) {
         if (err) {
