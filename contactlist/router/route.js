@@ -10,6 +10,13 @@ router.get('/contacts', (req, res, next) => {
         res.json(contacts);
     })
 });
+// retrieving single contact by code
+router.get('/contacts/:code', (req, res, next) => {
+    let query = { code: req.params.code };    
+    Contact.findOne(query, function (err, contact){
+        res.json(contact);
+      });
+});
 
 // add contact
 router.post('/contacts', (req, res, next) => {
