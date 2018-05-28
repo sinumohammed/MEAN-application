@@ -19,11 +19,14 @@ Agenda
 .Contact List MEAN app
 
 For running server
-> npm run start 
+> npm start 
 Listen on port http://localhost:3000
 
-For running client
-> ng serve
+For running client -env prod,qa,stg
+> ng serve [ development ]
+> ng serve -e prod
+> ng serve -e qa
+> ng serve -e stg
 open on port http://localhost:4200
 
 # Heroku updation
