@@ -57,7 +57,7 @@ router.put('/employees/:id', (req, res, next) => {
 });
 
 router.delete('/employees/:id', (req, res, next) => {
-    Eemployee.remove({
+    Employee.remove({
         _id: req.params.id
     }, function (err, result) {
         if (err) {

@@ -16,7 +16,7 @@ export class EmployeeComponent implements OnInit {
   _id: string;
   code: string;
   name: string;
-  gender: string;
+  gender: string='Male';
   annualSalary: number;
   dateOfBirth: string;
 
