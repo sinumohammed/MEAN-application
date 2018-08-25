@@ -67,6 +67,7 @@ router.post('/employees', (req, res, next) => {
 router.put('/employees/:id', (req, res, next) => {
     let query = { _id: req.params.id };
     Employee.findOne(query, function (err, employee) {
+        employee.code = req.body.code;
         employee.name = req.body.name;
         employee.gender = req.body.gender;
         employee.annualSalary = req.body.annualSalary;
