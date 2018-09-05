@@ -48,6 +48,8 @@ router.get('/employees/:code', (req, res, next) => {
 router.post('/employees', (req, res, next) => {
     let newEmployee = new Employee({
         code: req.body.code,
+        email: req.body.email,
+        password: req.body.password,
         name: req.body.name,
         gender: req.body.gender,
         annualSalary: req.body.annualSalary,
@@ -63,11 +65,37 @@ router.post('/employees', (req, res, next) => {
         }
     })
 });
+// authenticate
+router.post('/login', async function (req, res, next) {
+    const { email, password } = req.body
+    let query = { email: email };
+    const user = await Employee.findOne(query);
+    if (!user) {
+        return res.status(403).send({
+            authenticated:false,
+            error: 'The login information was incorrect'
+        })
+    }
+    const isPasswordValid = user.password == password;
+    if (!isPasswordValid) {
+        return res.status(403).send({
+            authenticated:false,
+            error: 'The login information was incorrect'
+        })
+    }
 
+    const userJson = user.toJSON()
+    res.send({
+        authenticated:true,
+        user: user.name
+    })
+});
 router.put('/employees/:id', (req, res, next) => {
     let query = { _id: req.params.id };
     Employee.findOne(query, function (err, employee) {
         employee.code = req.body.code;
+        employee.email = req.body.email;
+        employee.password = req.body.password;
         employee.name = req.body.name;
         employee.gender = req.body.gender;
         employee.annualSalary = req.body.annualSalary;

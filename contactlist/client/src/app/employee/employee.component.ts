@@ -14,6 +14,8 @@ export class EmployeeComponent implements OnInit {
   isLoading = false;
 
   _id: string;
+  email:string;
+  password:string;
   code: string;
   name: string;
   gender: string='Male';
@@ -41,6 +43,8 @@ export class EmployeeComponent implements OnInit {
     this.isLoading = true;
     const newContact: IEmployee = {
       code: this.code,
+      email:this.email,
+      password:this.password,
       name: this.name,
       gender: this.gender,
       annualSalary: this.annualSalary,
@@ -73,6 +77,8 @@ export class EmployeeComponent implements OnInit {
 
   editEmployee(contact: IEmployee) {
     this._id = contact._id;
+    this.email = contact.email;
+    this.password=contact.password;
     this.code = contact.code;
     this.name = contact.name;
     this.gender = contact.gender;
@@ -100,6 +106,8 @@ export class EmployeeComponent implements OnInit {
 
   clearFields() {
     this.code = '';
+    this.email = ''
+    this.password='';
     this.name = '';
     this.gender = 'Male';
     this.dateOfBirth = '';
